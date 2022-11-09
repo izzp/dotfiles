@@ -1,0 +1,10 @@
+[user]
+	name = ZhaoZhipeng
+	email = i@mezzp.com
+	signingkey = 8ED7999999999999
+[commit]
+	gpgsign = true
+[gpg]
+	program = c:/Program Files (x86)/GnuPG/bin/gpg.exe
+[color]
+	ui = auto
