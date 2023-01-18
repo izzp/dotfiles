@@ -2,16 +2,16 @@
 # * Author: ZhaoZhipeng
 # * Email: meetzzp@gmail.com
 # * Date Created: 2022/12/6
-# * Data Updated: 2022/12/6
+# * Data Updated: 2023/01/18
 
-# Powerlevel10k 部分设置 BEGIN
+# Powerlevel10k part begin
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-# Powerlevel10k 部分设置 END
+# Powerlevel10k part end
 
 
 # oh-my-zsh installation path 
@@ -82,7 +82,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 
-# 别名 alias
+# alias
 alias ll='ls -lFh'
 alias la='ls -a'
 alias l='ls -1A'
@@ -173,7 +173,18 @@ bindkey -s "^[Oj" "*"
 bindkey -s "^[Oo" "/"
 # zsh Key-Binding  END
 
-# Powerlevel10k 部分设置 BEGIN
+# Powerlevel10k part begin
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# Powerlevel10k 部分设置 END
+# Powerlevel10k part end
+
+# Jenv part begin
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+# Jenv part end
+
+# nvm part end
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
+# nvm part begin
