@@ -2,7 +2,7 @@
 # * Author: ZhaoZhipeng
 # * Email: meetzzp@gmail.com
 # * Date Created: 2022/12/6
-# * Data Updated: 2023/01/18
+# * Data Updated: 2023/03/08
 
 # Powerlevel10k part begin
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -62,7 +62,7 @@ DISABLE_AUTO_UPDATE="true"
 # 开启自动纠正错误
 ENABLE_CORRECTION="true"
 
-# 插件配置 BEGIN
+# plugins part BEGIN
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 plugins=(
@@ -76,7 +76,7 @@ plugins=(
     zsh-autosuggestions
     colored-man-pages
 )
-# 插件配置  END
+# plugins part END
 
 # 启用 oh-my-zsh 配置
 source $ZSH/oh-my-zsh.sh
@@ -127,51 +127,6 @@ function os-update () {
 }
 # UPDATE 设置 END
 
-# history命令的时间展示格式
-export HISTTIMEFORMAT="%d/%m/%y %T "
-
-# zsh Key-Binding BEGIN
-# 防止 SSH Shell 某些键失效
-bindkey "\e[1~" beginning-of-line
-bindkey "\e[4~" end-of-line
-bindkey "\e[5~" beginning-of-history
-bindkey "\e[6~" end-of-history
-
-# for rxvt
-bindkey "\e[8~" end-of-line
-bindkey "\e[7~" beginning-of-line
-# for non RH/Debian xterm, can't hurt for RH/DEbian xterm
-bindkey "\eOH" beginning-of-line
-bindkey "\eOF" end-of-line
-# for freebsd console
-bindkey "\e[H" beginning-of-line
-bindkey "\e[F" end-of-line
-# completion in the middle of a line
-bindkey '^i' expand-or-complete-prefix
-
-# Fix numeric keypad
-# 0 . Enter
-bindkey -s "^[Op" "0"
-bindkey -s "^[On" "."
-bindkey -s "^[OM" "^M"
-# 1 2 3
-bindkey -s "^[Oq" "1"
-bindkey -s "^[Or" "2"
-bindkey -s "^[Os" "3"
-# 4 5 6
-bindkey -s "^[Ot" "4"
-bindkey -s "^[Ou" "5"
-bindkey -s "^[Ov" "6"
-# 7 8 9
-bindkey -s "^[Ow" "7"
-bindkey -s "^[Ox" "8"
-bindkey -s "^[Oy" "9"
-# + - * /
-bindkey -s "^[Ol" "+"
-bindkey -s "^[Om" "-"
-bindkey -s "^[Oj" "*"
-bindkey -s "^[Oo" "/"
-# zsh Key-Binding  END
 
 # Powerlevel10k part begin
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
