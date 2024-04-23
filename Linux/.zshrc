@@ -1,8 +1,8 @@
 # * Description: zsh configuration file / Oh-My-Zsh
 # * Author: ZhaoZhipeng
 # * Email: meetzzp@gmail.com
-# * Date Created: 2022/12/6
-# * Data Updated: 2023/03/08
+# * Date Created: 2022-12-06
+# * Data Updated: 2024-04-23
 
 # Powerlevel10k part begin
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -17,35 +17,6 @@ fi
 # oh-my-zsh installation path 
 export ZSH=$HOME"/.oh-my-zsh"
 
-# 获取系统类型
-if [[ `uname -s` == "Linux" ]]; then
-    os_type=$(cat /etc/os-release | grep -i '^NAME')
-
-    # A. Debian
-    if [[ $os_type == *"Debian"* ]]; then
-        os_type="Debian"
-
-    # B. RedHat
-    elif [[ $os_type == *"Red Hat Enterprise Linux"* ]]; then
-        os_type="RedHat"
-
-    # C. Fedora
-    elif [[ $os_type == *"Fedora"* ]]; then
-        os_type="Fedora"
-
-    # D. CentOS
-    elif [[ $os_type == *"CentOS"* ]]; then
-        os_type="CentOS"
-
-    # E. Ubuntu
-    else [[ $os_type == *"Ubuntu"* ]]
-        os_type="Ubuntu"
-    fi
-elif [[ `uname -s` == "Darwin" ]]; then
-    os_type="macOS"
-else
-    os_type="unknown"
-fi
 
 # zsh 主题，默认的是 robbyrussell
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -94,38 +65,6 @@ alias egrep='egrep --color=auto'
 # Terminal Color BEGIN
 LS_COLORS=$LS_COLORS:'di=0;36' ; export LS_COLORS
 # Terminal Color  END
-
-
-
-# UPDATE 设置 BEGIN
-# 系统更新，不区分系统
-function os-update () {
-    # (1) 更新系统包管理器下的软件
-    if [[ $os_type = "macOS" ]]; then
-        echo "   Step brew update"
-        brew update
-        brew upgrade
-    elif [[ $os_type == "Ubuntu" ]]; then
-            echo '   Step  正在更新' $os_type
-            sudo apt update
-            apt list --upgradable
-            sudo apt upgrade
-    elif [[ $os_type == "Debian" ]]; then
-            echo '   Step 正在更新' $os_type
-            sudo apt update
-            apt list --upgradable
-            sudo apt upgrade
-    elif [[ $os_type == "RedHat" || $os_type == "CentOS" || $os_type == "Fedora" ]]; then
-            echo '   Step 3/3 正在更新' $os_type
-            sudo yum update
-    elif [[ $os_type == "TrueNAS_SCALE" ]]; then
-            echo '   Step 3/3 TrueNAS 请手动更新'
-    else
-        echo "系统类型无法识别，无法更新系统软件."
-    fi
-    echo "更新完成！"
-}
-# UPDATE 设置 END
 
 
 # Powerlevel10k part begin
