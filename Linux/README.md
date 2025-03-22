@@ -1,6 +1,8 @@
 zshrc
 ```bash
-curl https://raw.githubusercontent.com/izzp/dotfiles/main/Linux/.zshrc > ~/.zshrc && source ~/.zshrc
+git clone https://github.com/izzp/dotfiles.git ~/dotfiles && \
+cp ~/dotfiles/Linux/.zshrc ~/.zshrc && \
+source ~/.zshrc
 ```
 initialize_server
 ```bash

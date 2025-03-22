@@ -40,10 +40,31 @@ update_system() {
 # 安装必备软件的函数
 install_software() {
     print_message $YELLOW "开始安装必备软件"
-    apt install sudo vim git curl wget htop iotop ncdu zsh tmux ufw docker.io fail2ban -y
-    cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
-    systemctl enable fail2ban
-    systemctl start fail2ban
+    
+    # 安装基础开发工具
+    print_message $YELLOW "安装基础开发工具..."
+    apt install -y build-essential git curl wget net-tools
+    print_message $GREEN "基础开发工具安装完成"
+    
+    # 安装系统监控软件
+    print_message $YELLOW "安装系统监控软件..."
+    apt install -y neofetch glances htop iftop iotop bmon
+    print_message $GREEN "系统监控软件安装完成"
+    
+    # 安装常用文本工具
+    print_message $YELLOW "安装常用文本工具..."
+    apt install -y vim jq
+    print_message $GREEN "常用文本工具安装完成"
+    
+    # 安装常用终端复用工具
+    print_message $YELLOW "安装常用终端复用工具..."
+    apt install -y tmux
+    print_message $GREEN "常用终端复用工具安装完成"
+    
+    # 安装必备软件
+    print_message $YELLOW "安装其他必备软件..."
+    apt install sudo ncdu zsh ufw fail2ban rsyslog -y
+    print_message $GREEN "其他必备软件安装完成"
     print_message $GREEN "安装必备软件完成"
 }
 
@@ -65,16 +86,32 @@ add_user() {
     print_message $GREEN "添加新用户并赋予 sudo 权限完成"
 }
 
-# 为新用户添加登录公钥的函数
-add_ssh_key() {
-    print_message $YELLOW "开始为新用户添加登录公钥"
+# 检查用户是否存在的函数
+check_user_exists() {
+    local username=$1
+    if [ ! -d "/home/$username" ]; then
+        print_message $RED "错误：用户 $username 不存在"
+        return 1
+    fi
+    return 0
+}
+
+# 获取用户名的函数
+get_username() {
     if [ -z "$global_username" ]; then
-        read -e -p "输入新用户的用户名: " username
+        read -e -p "输入用户名: " username
         global_username="$username"
     else
         username="$global_username"
         echo "使用存储的用户名: $username"
     fi
+    echo $username
+}
+
+# 为新用户添加登录公钥的函数
+add_ssh_key() {
+    print_message $YELLOW "开始为新用户添加登录公钥"
+    username=$(get_username)
     read -e -p "输入 SSH 公钥内容: " ssh_key_content
     mkdir -p /home/$username/.ssh
     echo "$ssh_key_content" >> /home/$username/.ssh/authorized_keys
@@ -99,18 +136,8 @@ configure_ssh() {
 # 配置 Oh-my-zsh 的函数
 configure_ohmyzsh() {
     print_message $YELLOW "开始配置 Oh-my-zsh"
-    if [ -z "$global_username" ]; then
-        read -e -p "输入要配置的用户的用户名: " username
-        global_username="$username"
-    else
-        username="$global_username"
-        echo "使用存储的用户名: $username"
-    fi
-    # 检查用户是否存在
-    if [ ! -d "/home/$username" ]; then
-        print_message $RED "错误：用户 $username 不存在"
-        return 1
-    fi
+    username=$(get_username)
+    check_user_exists $username || return 1
     # 检查是否已经存在 .oh-my-zsh 文件夹
     if [ -d "/home/$username/.oh-my-zsh" ]; then
         # 如果存在，则删除
@@ -151,19 +178,9 @@ configure_ohmyzsh() {
 
 # 配置 Powerlevel10k 的函数
 configure_powerlevel10k() {
-  
-    if [ -z "$global_username" ]; then
-        read -e -p "输入要配置的用户的用户名: " username
-        global_username="$username"
-    else
-        username="$global_username"
-        echo "使用存储的用户名: $username"
-    fi
-    # 检查用户是否存在
-    if [ ! -d "/home/$username" ]; then
-        print_message $RED "错误：用户 $username 不存在"
-        return 1
-    fi
+    print_message $YELLOW "开始配置 Powerlevel10k"
+    username=$(get_username)
+    check_user_exists $username || return 1
     # 检查是否已经存在 .oh-my-zsh 文件夹
     if [ -d "/home/$username/.oh-my-zsh" ]; then
         # 如果存在，则继续
@@ -179,7 +196,6 @@ configure_powerlevel10k() {
         print_message $RED "无法配置，不存在 oh-my-zsh"
     fi
 }
-
 
 # 主函数，执行所有步骤
 main() {
