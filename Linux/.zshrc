@@ -2,7 +2,7 @@
 # * Author: ZhaoZhipeng
 # * Email: meetzzp@gmail.com
 # * Date Created: 2022-12-06
-# * Data Updated: 2024-04-23
+# * Data Updated: 2025-01-17
 
 # Powerlevel10k part begin
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -72,13 +72,10 @@ LS_COLORS=$LS_COLORS:'di=0;36' ; export LS_COLORS
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # Powerlevel10k part end
 
-# Jenv part begin
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-# Jenv part end
-
-# nvm part end
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
-# nvm part begin
+# fnm part begin
+FNM_PATH="/home/zhao/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+# fnm part end

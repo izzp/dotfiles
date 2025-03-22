@@ -4,5 +4,5 @@ curl https://raw.githubusercontent.com/izzp/dotfiles/main/Linux/.zshrc > ~/.zshr
 ```
 initialize_server
 ```bash
-git clone https://github.com/izzp/dotfiles.git && cd dotfiles/Linux && ./initialize_server.sh
+git clone https://github.com/izzp/dotfiles.git && cd dotfiles/Linux &&chmod +x ./initialize_server.sh  && ./initialize_server.sh
 ```
